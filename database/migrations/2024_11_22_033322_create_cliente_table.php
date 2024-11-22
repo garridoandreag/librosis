@@ -22,6 +22,8 @@ return new class extends Migration
             `Ciudad` VARCHAR(45) NULL,
             `Pais` VARCHAR(45) NULL,
             `Estado` SET("ACTIVO", "INACTIVO") NOT NULL,
+            `FechaCreacion` TIMESTAMP NULL,
+            `FechaModificacion` TIMESTAMP NULL,
             PRIMARY KEY (`idCliente`),
             UNIQUE INDEX `NIT_UNIQUE` (`NIT` ASC) VISIBLE)
             ENGINE = InnoDB;');

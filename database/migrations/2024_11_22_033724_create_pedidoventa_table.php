@@ -17,6 +17,8 @@ return new class extends Migration
             `MontoTotal` DECIMAL(2) NULL,
             `MetodoPago` SET("TARJETA", "EFECTIVO", "TARJETA DE REGALO", "CREDITO") NULL,
             `Estado` SET("PROCESANDO", "COMPLETADO", "CANCELADO") NOT NULL,
+            `FechaCreacion` TIMESTAMP NULL,
+            `FechaModificacion` TIMESTAMP NULL,
             PRIMARY KEY (`idPedidoVenta`),
             INDEX `FK_CLIENTE_idx` (`idCliente` ASC) VISIBLE,
             CONSTRAINT `FK_CLIENTE`

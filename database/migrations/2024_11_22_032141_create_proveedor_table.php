@@ -22,6 +22,8 @@ return new class extends Migration
             `Pais` VARCHAR(45) NULL,
             `CodigoPostal` VARCHAR(45) NULL,
             `Estado` SET("ACTIVO", "INACTIVO") NOT NULL,
+            `FechaCreacion` TIMESTAMP NULL,
+            `FechaModificacion` TIMESTAMP NULL,
             PRIMARY KEY (`idProveedor`))
             ENGINE = InnoDB;');
     }

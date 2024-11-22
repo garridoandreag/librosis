@@ -26,6 +26,7 @@ return new class extends Migration
             `PrecioTotal` DECIMAL(2) NULL,
             `Usuario` VARCHAR(45) NULL,
             `FechaCreacion` TIMESTAMP NULL,
+            `FechaModificacion` TIMESTAMP NULL,
             PRIMARY KEY (`idMovimiento`),
             INDEX `FK_MOV_VENTA_idx` (`idVenta` ASC) VISIBLE,
             INDEX `FK_MOV_VENTAD_idx` (`idVentaDetalle` ASC) VISIBLE,

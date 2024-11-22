@@ -23,6 +23,8 @@ return new class extends Migration
             `imagen` VARCHAR(200) NULL,
             `Idioma` SET("ES", "EN", "OTRO") NOT NULL,
             `Estado` SET("ACTIVO", "INACTIVO") NOT NULL,
+            `FechaCreacion` TIMESTAMP NULL,
+            `FechaModificacion` TIMESTAMP NULL,
             PRIMARY KEY (`idLibro`),
             UNIQUE INDEX `idLibro_UNIQUE` (`idLibro` ASC) VISIBLE,
             UNIQUE INDEX `ISBN_UNIQUE` (`ISBN` ASC) VISIBLE,

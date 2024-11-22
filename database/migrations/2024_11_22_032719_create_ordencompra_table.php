@@ -14,7 +14,8 @@ return new class extends Migration
         DB::statement('CREATE TABLE IF NOT EXISTS `librosis`.`OrdenCompra` (
             `idOrdenCompra` INT NOT NULL AUTO_INCREMENT,
             `idProveedor` INT NOT NULL,
-            `FechaCreacion` DATE NULL,
+            `FechaCreacion` TIMESTAMP NULL,
+            `FechaModificacion` TIMESTAMP NULL,
             `Total` DECIMAL(2) NULL,
             `FechaEntrega` DATE NULL,
             `ESTADO` SET("PENDIENTE", "RECIBIDO", "CANCELADO") NOT NULL,

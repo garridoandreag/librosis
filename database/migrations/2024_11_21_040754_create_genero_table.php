@@ -15,6 +15,8 @@ return new class extends Migration
             idGenero INT NOT NULL AUTO_INCREMENT,
             Nombre VARCHAR(45) NOT NULL,
             Estado SET("ACTIVO", "INACTIVO") NOT NULL,
+            `FechaCreacion` TIMESTAMP NULL,
+            `FechaModificacion` TIMESTAMP NULL,
             PRIMARY KEY (idGenero))
           ENGINE = InnoDB;');
     }
