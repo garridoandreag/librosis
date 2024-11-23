@@ -8,9 +8,10 @@ namespace App\Models;
 
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
- * Class PedidoVentum
+ * Class PedidoVenta
  *
  * @property int $id_pedido_venta
  * @property int $id_cliente
@@ -26,8 +27,9 @@ use Illuminate\Database\Eloquent\Collection;
  *
  * @package App\Models
  */
-class PedidoVentum extends Model
+class PedidoVenta extends Model
 {
+	use SoftDeletes;
 	protected $table = 'pedido_venta';
 	protected $primaryKey = 'id_pedido_venta';
 	public $timestamps = true;
@@ -36,7 +38,8 @@ class PedidoVentum extends Model
 		'id_cliente' => 'int',
 		'monto_total' => 'float',
 		'fecha_creacion' => 'datetime',
-		'fecha_modificacion' => 'datetime'
+		'fecha_modificacion' => 'datetime',
+		'fecha_eliminacion' => 'datetime'
 	];
 
 	protected $fillable = [
