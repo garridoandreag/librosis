@@ -12,7 +12,8 @@
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
 
         <!-- Scripts -->
-        @vite(['resources/css/app.css', 'resources/js/app.js'])
+        @filamentStyles
+        @vite('resources/css/app.css')
     </head>
     <body class="font-sans antialiased">
         <div class="flex min-h-screen bg-gray-100 dark:bg-gray-900">
@@ -39,5 +40,7 @@
                 </main>
             </div>
         </div>
+        @filamentScripts
+        @vite('resources/js/app.js')
     </body>
 </html>
