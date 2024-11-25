@@ -23,6 +23,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property Carbon|null $fecha_publicacion
  * @property string|null $imagen
  * @property string $idioma
+ * @property string $editorial
  * @property string $estado
  * @property Carbon|null $fecha_creacion
  * @property Carbon|null $fecha_modificacion
@@ -48,7 +49,8 @@ class Libro extends Model
 		'precio' => 'float',
 		'fecha_publicacion' => 'datetime',
 		'fecha_creacion' => 'datetime',
-		'fecha_modificacion' => 'datetime'
+		'fecha_modificacion' => 'datetime',
+		'fecha_eliminacion' => 'datetime'
 	];
 
 	protected $fillable = [
@@ -61,9 +63,11 @@ class Libro extends Model
 		'fecha_publicacion',
 		'imagen',
 		'idioma',
+		'editorial',
 		'estado',
 		'fecha_creacion',
-		'fecha_modificacion'
+		'fecha_modificacion',
+		'fecha_eliminacion',
 	];
 
 	public function genero()

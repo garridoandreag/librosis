@@ -51,6 +51,8 @@ class PedidoVenta extends Model
 		'fecha_modificacion'
 	];
 
+
+
 	public function cliente()
 	{
 		return $this->belongsTo(Cliente::class, 'id_cliente');

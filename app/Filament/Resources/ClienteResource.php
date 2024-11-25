@@ -68,22 +68,21 @@ class ClienteResource extends Resource
                     ->searchable(),
                 Tables\Columns\TextColumn::make('correo_electronico')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('direccion')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('ciudad')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('pais')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('estado'),
+                // Tables\Columns\TextColumn::make('direccion')
+                //     ->searchable(),
+                // Tables\Columns\TextColumn::make('ciudad')
+                //     ->searchable(),
+                // Tables\Columns\TextColumn::make('pais')
+                //     ->searchable(),
+                // Tables\Columns\TextColumn::make('estado'),
                 Tables\Columns\TextColumn::make('fecha_creacion')
-                    ->dateTime()
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('fecha_modificacion')
-                    ->dateTime()
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('fecha_eliminacion')
-                    ->dateTime()
-                    ->sortable(),
+                    ->since(),
+                // Tables\Columns\TextColumn::make('fecha_modificacion')
+                //     ->dateTime()
+                //     ->sortable(),
+                // Tables\Columns\TextColumn::make('fecha_eliminacion')
+                //     ->dateTime()
+                //     ->sortable(),
             ])
             ->filters([
                 Tables\Filters\TrashedFilter::make(),

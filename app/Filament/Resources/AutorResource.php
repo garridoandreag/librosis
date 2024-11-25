@@ -87,4 +87,5 @@ class AutorResource extends Resource
                 SoftDeletingScope::class,
             ]);
     }
+
 }

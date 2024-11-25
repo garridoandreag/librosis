@@ -9,7 +9,7 @@ namespace App\Models;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\SoftDeletes;
-
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 /**
  * Class Cliente
  *
@@ -34,6 +34,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Cliente extends Model
 {
 	use SoftDeletes;
+	use HasFactory;
 	protected $table = 'cliente';
 	protected $primaryKey = 'id_cliente';
 	public $timestamps = true;
@@ -66,5 +67,9 @@ class Cliente extends Model
 	public function pedido_venta()
 	{
 		return $this->hasMany(PedidoVentum::class, 'id_cliente');
+	}
+
+	public function getFullNameAttribute(){
+		return '('.$this->nit.') '.$this->nombre.' '.$this->apellido;
 	}
 }

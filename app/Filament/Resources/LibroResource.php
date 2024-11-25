@@ -50,6 +50,9 @@ class LibroResource extends Resource
                     ->minValue(1)
                     ->maxValue(9999),
                 Forms\Components\DatePicker::make('fecha_publicacion'),
+                Forms\Components\TextInput::make('editorial')
+                ->required()
+                ->maxLength(50),
                 Forms\Components\FileUpload::make('imagen'),
                 Forms\Components\Select::make('idioma')
                     ->options([
@@ -92,7 +95,13 @@ class LibroResource extends Resource
                 //     ->date()
                 //     ->sortable(),
                 
-                Tables\Columns\ImageColumn::make('imagen')->size(40)->square(),
+                Tables\Columns\ImageColumn::make('imagen')
+                ->defaultImageUrl(url('storage/images/libro.jpg'))
+                ->disk('public')
+                ->width(60)
+                ->height(90),
+                Tables\Columns\TextColumn::make('editorial')
+                ->searchable(),
                 Tables\Columns\TextColumn::make('idioma'),
                 // Tables\Columns\TextColumn::make('estado'),
                 // Tables\Columns\TextColumn::make('fecha_creacion')
