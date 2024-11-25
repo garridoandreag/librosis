@@ -20,21 +20,23 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Filament\Tables\Columns\TextInputColumn;
 use Illuminate\Http\Request;
-use Filament\Pages\Concerns\InteractsWithFormActions;
-use Filament\Forms\Get;
-use Filament\Forms\Set;
-use Filament\Infolists\Components\Grid;
+//use Filament\Pages\Concerns\InteractsWithFormActions;
+use Filament\Resources\Pages\CreateRecord;
+
 
 class PedidoVentaResource extends Resource
 {
+
+
     protected static ?string $model = PedidoVenta::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
-    use InteractsWithFormActions;
+    //use InteractsWithFormActions;
 
     public static function form(Form $form): Form
     {
+       // echo("<script>console.log('PHP: ');</script>");
 
         return $form
             ->schema([
@@ -47,8 +49,17 @@ class PedidoVentaResource extends Resource
                 // Forms\Components\TextInput::make('estado')
                 //     ->required()
 
+                Forms\Components\Select::make('estado')
+                ->options([
+                    'PROCESANDO' => 'Procesando',
+                    'COMPLETADO' => 'Completado',
+                    'CANCELADO' => 'Cancelado',
+                ])->default('PROCESANDO')->disabled()
+                ->required(),
+
                 Forms\Components\Select::make('metodo_pago')
                 ->options([
+                    
                     'TARJETA' => 'Tarjeta',
                     'EFECTIVO' => 'Efectivo',
                     'TARJETA DE REGALO' => 'Tarjeta de Regalo',
@@ -57,12 +68,12 @@ class PedidoVentaResource extends Resource
                 
                 TextInput::make('monto_total')
                 ->prefix('Q. ')
-                ->disabled()
+                ->readOnly()
                 ->numeric()
                 ->default(0),
-
                 
-                Repeater::make('producto')
+                Repeater::make('pedido_venta_detalles')
+                ->relationship('pedido_venta_detalles')
                 ->schema([
                     Select::make('id_libro')
                     ->label('Libro')
@@ -92,6 +103,8 @@ class PedidoVentaResource extends Resource
                 
                 ])
                 ->columns(4)
+                ->required()
+                ->default([])
                 ->afterStateUpdated(function ($state, $set) {
                     // Recalculate the total when the repeater changes
                     $set('monto_total', collect($state)->sum('precio_total'));
@@ -100,26 +113,77 @@ class PedidoVentaResource extends Resource
                 
 
             ])->columns(1);
+
     }
+
+    // // Customize save logic in the resource
+    // public static function mutateFormDataBeforeSave(array $data): array
+    // {
+    //     $pedidoVentaDetalleData = Arr::only($data, ['pedido_venta_detalle.id_libro', 'pedido_venta_detalle.cantidad', 'pedido_venta_detalle.precio', 'pedido_venta_detalle.precio_total']);
+    //     unset($data['pedido_venta_detalle.id_libro'], $data['pedido_venta_detalle.cantidad'], $data['pedido_venta_detalle.precio'], $data['pedido_venta_detalle.precio_total']);
+
+    //     return $data;
+    // }
+
+    // protected function afterSave(): void
+    // {
+    //     echo("<script>console.log('before save function ');</script>");
+
+    //     $pedido_venta_detalles = $this->form->getState('pedido_venta_detalles');
+    //    $this->record->pedido_venta_detalles()->delete();
+
+    //    echo $pedido_venta_detalles;
+
+    //     foreach ($pedido_venta_detalles as $pedido_venta_detalle) {
+    //         $this->record
+    //         ->pedido_venta_detalles()
+    //         ->updateOrCreate($pedido_venta_detalle); // Create new items
+    //         echo("<script>console.log('".$pedido_venta_detalle." ');</script>");
+    //     }
+
+
+    //     $model->pedido_venta_detalles()->updateOrCreate([
+    //         'id_libro' => $request->input('id_libro'),
+    //         'cantidad' => $request->input('cantidad'),
+    //         'precio' => $request->input('precio'),
+    //         'precio_total' => $request->input('precio_total'),
+    //         'usuario' => Auth::user(),
+
+    //         // $orderData = [
+    //         //     'order_number' => $this->form->getState('order_number'),
+    //         //     'order_total' => $this->form->getState('order_total'),
+    //         //     'customer_id' => $this->record->id, // Link to the customer
+    //         // ];
+        
+    //         \App\Models\PedidoVentaDetalle::updateOrCreate($orderData);
+    //     ]);
+
+        
+    // }
 
     public static function table(Table $table): Table
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('id_cliente')
-                    ->numeric()
-                    ->sortable(),
+                Tables\Columns\TextColumn::make('cliente.full_name')
+                ->searchable(),
+
+                // Tables\Columns\TextColumn::make('cliente.apellido')
+                //     ->sortable(),
+
+                // Tables\Columns\TextColumn::make('cliente.nit')
+                //     ->sortable(),
+
                 Tables\Columns\TextColumn::make('monto_total')
                     ->numeric()
+                    ->money('GTQ')
                     ->sortable(),
                 Tables\Columns\TextColumn::make('metodo_pago'),
-                Tables\Columns\TextColumn::make('estado'),
+                //Tables\Columns\TextColumn::make('estado'),
                 Tables\Columns\TextColumn::make('fecha_creacion')
-                    ->dateTime()
+                    ->since()
                     ->sortable(),
-                Tables\Columns\TextColumn::make('fecha_modificacion')
-                    ->dateTime()
-                    ->sortable(),
+
             ])
             ->filters([
                 Tables\Filters\TrashedFilter::make(),

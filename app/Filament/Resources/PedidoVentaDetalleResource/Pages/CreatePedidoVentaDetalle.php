@@ -9,4 +9,8 @@ use Filament\Resources\Pages\CreateRecord;
 class CreatePedidoVentaDetalle extends CreateRecord
 {
     protected static string $resource = PedidoVentaDetalleResource::class;
+
+    // protected function handleRecordCreation(array $data): Model {
+    //      return static::getModel()::create($data);
+    // }
 }

@@ -23,7 +23,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property string|null $usuario
  *
  * @property Libro $libro
- * @property PedidoVentum $pedido_ventum
+ * @property PedidoVenta $pedido_venta
  * @property Collection|Movimiento[] $movimientos
  *
  * @package App\Models
@@ -61,9 +61,9 @@ class PedidoVentaDetalle extends Model
 		return $this->belongsTo(Libro::class, 'id_libro');
 	}
 
-	public function pedido_ventum()
+	public function pedido_venta()
 	{
-		return $this->belongsTo(PedidoVentum::class, 'id_pedido_venta');
+		return $this->belongsTo(PedidoVenta::class, 'id_pedido_venta');
 	}
 
 	public function movimientos()

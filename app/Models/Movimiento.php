@@ -32,7 +32,7 @@ use Carbon\Carbon;
  * @property OrdenCompraDetalle|null $orden_compra_detalle
  * @property Libro $libro
  * @property Proveedor|null $proveedor
- * @property PedidoVentum|null $pedido_ventum
+ * @property PedidoVenta|null $pedido_venta
  * @property PedidoVentaDetalle|null $pedido_venta_detalle
  *
  * @package App\Models
@@ -101,9 +101,9 @@ class Movimiento extends Model
 		return $this->belongsTo(Proveedor::class, 'id_proveedor');
 	}
 
-	public function pedido_ventum()
+	public function pedido_venta()
 	{
-		return $this->belongsTo(PedidoVentum::class, 'id_venta');
+		return $this->belongsTo(PedidoVenta::class, 'id_venta');
 	}
 
 	public function pedido_venta_detalle()
