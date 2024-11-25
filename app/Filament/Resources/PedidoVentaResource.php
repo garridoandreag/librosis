@@ -44,6 +44,7 @@ class PedidoVentaResource extends Resource
                     ->label('Cliente')
                     ->options(Cliente::all()->pluck('full_name', 'id_cliente'))
                     ->searchable()
+                    //->disabled()
                     ->required(),
                 //Forms\Components\TextInput::make('metodo_pago'),
                 // Forms\Components\TextInput::make('estado')
@@ -54,7 +55,8 @@ class PedidoVentaResource extends Resource
                     'PROCESANDO' => 'Procesando',
                     'COMPLETADO' => 'Completado',
                     'CANCELADO' => 'Cancelado',
-                ])->default('PROCESANDO')->disabled()
+                ])->default('PROCESANDO')
+                //->disabled()
                 ->required(),
 
                 Forms\Components\Select::make('metodo_pago')
@@ -64,16 +66,17 @@ class PedidoVentaResource extends Resource
                     'EFECTIVO' => 'Efectivo',
                     'TARJETA DE REGALO' => 'Tarjeta de Regalo',
                     'CREDITO' => 'Credito',
-                ])->required(),
+                ])
+                //->disabled()
+                ->required(),
                 
                 TextInput::make('monto_total')
                 ->prefix('Q. ')
-                ->readOnly()
+                ->disabled()
                 ->numeric()
                 ->default(0),
                 
-                Repeater::make('pedido_venta_detalles')
-                ->relationship('pedido_venta_detalles')
+                Repeater::make('venta_detalles')
                 ->schema([
                     Select::make('id_libro')
                     ->label('Libro')
@@ -102,7 +105,9 @@ class PedidoVentaResource extends Resource
                     ->default(fn ($get) => $get('cantidad') * Libro::find($get('id_libro'))),
                 
                 ])
+                //->relationship('pedido_venta_detalles')
                 ->columns(4)
+                //->disabled()
                 ->required()
                 ->default([])
                 ->afterStateUpdated(function ($state, $set) {
@@ -165,14 +170,16 @@ class PedidoVentaResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('cliente.full_name')
+                // Tables\Columns\TextColumn::make('cliente.full_name')
+                // ->searchable(),
+                Tables\Columns\TextColumn::make('cliente.nombre')
                 ->searchable(),
 
-                // Tables\Columns\TextColumn::make('cliente.apellido')
-                //     ->sortable(),
+                Tables\Columns\TextColumn::make('cliente.apellido')
+                ->searchable(),
 
-                // Tables\Columns\TextColumn::make('cliente.nit')
-                //     ->sortable(),
+                Tables\Columns\TextColumn::make('cliente.nit')
+                ->searchable(),
 
                 Tables\Columns\TextColumn::make('monto_total')
                     ->numeric()

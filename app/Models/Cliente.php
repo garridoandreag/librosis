@@ -27,7 +27,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property Carbon|null $fecha_modificacion
  *
  * @property Collection|Movimiento[] $movimientos
- * @property Collection|PedidoVentum[] $pedido_venta
+ * @property Collection|PedidoVenta[] $pedido_venta
  *
  * @package App\Models
  */
@@ -66,7 +66,7 @@ class Cliente extends Model
 
 	public function pedido_venta()
 	{
-		return $this->hasMany(PedidoVentum::class, 'id_cliente');
+		return $this->hasMany(PedidoVenta::class, 'id_cliente');
 	}
 
 	public function getFullNameAttribute(){

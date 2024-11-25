@@ -7,6 +7,7 @@ use Filament\Actions;
 use Filament\Resources\Pages\CreateRecord;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\PedidoVenta;
+use App\Models\PedidoVentaDetalles;
 
 class CreatePedidoVenta extends CreateRecord
 {
@@ -14,11 +15,11 @@ class CreatePedidoVenta extends CreateRecord
 
     protected function handleRecordCreation(array $data): Model {
 
-        //echo "handle record";
+
         $data['estado'] = 'COMPLETADO';
         $pedido_venta = PedidoVenta::create($data);
 
-        foreach ($data['pedido_venta_detalles'] as $pedido_venta_detalle) {
+        foreach ($data['venta_detalles'] as $pedido_venta_detalle) {
             //'usuario' => Auth::user()
 
             $pedido_venta->pedido_venta_detalles()->updateOrCreate($pedido_venta_detalle);
